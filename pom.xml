@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.nms</groupId>
+        <artifactId>integration</artifactId>
+        <version>15.2.0.40</version>
+    </parent>
+    <groupId>com.ericsson.oss.mediation.cm.handlers</groupId>
+    <artifactId>eoi-shm-mediation-handlers</artifactId>
+    <version>1.3.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+   <name>[${project.artifactId}] JEE8 Project</name>
+
+    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+      <ericsson.scm.url>scm:git:[fetch=]ssh://gerrit.ericsson.se:29418/OSS/ENM-Parent/SQ-Gate/com.ericsson.oss.mediation.cm.handlers/eoi-shm-mediation-handlers[push=]ssh://gerrit.ericsson.se:29418/OSS/ENM-Parent/SQ-Gate/com.ericsson.oss.mediation.cm.handlers/eoi-shm-mediation-handlers</ericsson.scm.url>
+        <!-- Do not use JBoss community version, use EAP version. The property values of the "jboss_managed_local" profile
+            in testsuite/jee need to be updated, when this JBoss version is changed. -->
+        <version.jboss.as>7.2.8.1</version.jboss.as>
+
+        <!-- When you want to switch to new Service Framework version only change value below. -->
+        <version.service.framework>4.10.6</version.service.framework>
+
+        <!-- Version of Model Service BOM. Annotation Processor and Model-Deployment-Tool need to be explicitly defined as
+            they are required in build phase. Be sure to always have alignment between each version below. If the BOM version changes,
+            the Annotation Processor / Model-Deployment-Tool versions may have to change as well. See Modeling BOM in confluence page
+            for the correct versions to use. -->
+        <version.modeling.bom>21.4.2</version.modeling.bom>
+        <version.modeling.annotation.processor>3.39.4</version.modeling.annotation.processor>
+        <version.model.deployment.tool>9.16.3</version.model.deployment.tool>
+
+        <version.weld>3.0.5.Final</version.weld>
+        <version.ejb>3.1</version.ejb>
+        <version.jee>8</version.jee>
+        <version.mockito>1.9.5</version.mockito>
+        <version.junit>4.12</version.junit>
+        <version.eoi-shm-mediation-handlers-jar>1.0.2-SNAPSHOT</version.eoi-shm-mediation-handlers-jar>
+
+        <version.jboss.as.arquillian>7.2.0.Final</version.jboss.as.arquillian>
+        <version.wildfly-arquillian-container>2.1.1.Final</version.wildfly-arquillian-container>
+        <version.arquillian.bom>1.2.0.Final</version.arquillian.bom>
+        <version.arquillian-weld-se-embedded>1.0.0.CR8</version.arquillian-weld-se-embedded>
+        <version.maven-ejb-plugin>3.2.1</version.maven-ejb-plugin>
+        <version.groovy>2.4.13</version.groovy>
+        <version.netconf.resource.adapter>2.9.1</version.netconf.resource.adapter>
+        <version.org.json>20231013</version.org.json>
+        <cba-netconf-manager.version>1.61.1</cba-netconf-manager.version>
+        <netconf.version>2.9.1</netconf.version>
+        <cba-cm-sync-node-handlers.jar.version>1.104.1</cba-cm-sync-node-handlers.jar.version>
+        <version.pib>4.12.1</version.pib>
+        <version.com-netconf-model-xa-resource-provider-jar>1.16.1</version.com-netconf-model-xa-resource-provider-jar>
+        <com-ecim-netconf-xa-resource-provider>1.19.1</com-ecim-netconf-xa-resource-provider>
+        <com-ecim-cm-filter-get-handler-api.version>1.21.1</com-ecim-cm-filter-get-handler-api.version>
+        <version.shm-ecim-mediation-handler-impl>1.15.1</version.shm-ecim-mediation-handler-impl>
+        <version.eventflow>1.0.16</version.eventflow>
+        <version.eventflow.api>3.0.2</version.eventflow.api>
+        <version.javax.ejb>3.2.2</version.javax.ejb>
+        <version.dps-api>1.101.2</version.dps-api>
+        <version.netconf-session-api-jar>1.23.1</version.netconf-session-api-jar>
+        <version.core-mediation-flow-api>1.3.8</version.core-mediation-flow-api>
+        <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
+        <version.sdk-eventbus-api>4.1.23</version.sdk-eventbus-api>
+        <version.sdk-modelled-eventbus-api>1.0.7</version.sdk-modelled-eventbus-api>
+
+        <project.ear.defaultLibBundleDir>lib</project.ear.defaultLibBundleDir>
+        <version.commons-commons-csv>1.8</version.commons-commons-csv>
+        <version.commons-collections4>4.4</version.commons-collections4>
+        <netcon-session-api-version>1.19.2</netcon-session-api-version>
+        <version.maven-ear-plugin>3.0.2</version.maven-ear-plugin>
+        <shm-model-version>1.134.3</shm-model-version>
+
+        <!-- JBoss modules your service will automatically add to classpath -->
+        <project.ear.Dependencies>org.slf4j</project.ear.Dependencies>
+        <!-- sonarqube requirement -->
+        <sonar.sources>pom.xml,src/main</sonar.sources>
+        <sonar.coverage.jacoco.xmlReportPaths>target/coverage-reports/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <consolidated.jacoco.path>${project.basedir}/../target/jacoco.exec</consolidated.jacoco.path>
+        <version.jacoco-maven-plugin>0.8.4</version.jacoco-maven-plugin>
+        <sonar.tests />
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- ServiceFrameworkJBossBOM only imports the Service Framework API modules.
+                No Service Framework implementation module is imported with this BOM. -->
+            <dependency>
+                <groupId>com.ericsson.oss.itpf.sdk</groupId>
+                <artifactId>ServiceFrameworkJBossBOM</artifactId>
+                <version>${version.service.framework}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Model Service BOM. It is required by Service Framework, and for anyone who is using Model Service. Do not 
+                remove it. -->
+            <dependency>
+                <groupId>com.ericsson.oss.itpf.modeling</groupId>
+                <artifactId>Modeling-BOM</artifactId>
+                <version>${version.modeling.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Arquillian BOM. It is used in JEE/JEE Cluster integration tests. -->
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>${version.arquillian.bom}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- The dependency is needed when "JSR-330: Dependency Injection" is used (e.g. @Inject, @Qualifier etc.) -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- The dependency is needed when CDI (Contexts and Dependency Injection) is used. -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Dependency for Bean validation -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Dependency for SLF4J logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Dependency for mocking in Unit tests -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${version.mockito}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+   <!--Profiles for site documentation -->
+   <!--Profile to deploy latest site -->
+   <profiles>
+      <profile>
+         <id>site_latest</id>
+         <distributionManagement>
+            <site>
+               <id>site</id>
+               <name>Site</name>
+               <url>${site.url}/eoi-shm-mediation-handlers/latest</url>
+            </site>
+         </distributionManagement>
+      </profile>
+
+      <!--Profile to stage site for review -->
+      <profile>
+         <id>site_review</id>
+         <distributionManagement>
+            <site>
+               <id>site</id>
+               <name>Site</name>
+               <url>${site.url}</url>
+            </site>
+         </distributionManagement>
+      </profile>
+   </profiles>
+   <!--Deployment of versioned documentation -->
+   <distributionManagement>
+      <site>
+         <id>site</id>
+         <name>Site</name>
+         <url>${site.url}/eoi-shm-mediation-handlers/${project.version}</url>
+      </site>
+   </distributionManagement>
+   <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>${maven-surefire-plugin}</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <build>
+      <pluginManagement>
+         <plugins>
+            <!--This plugin's configuration is used to store Eclipse m2e
+               settings only. It has no influence on the Maven build itself. -->
+            <plugin>
+               <groupId>org.eclipse.m2e</groupId>
+               <artifactId>lifecycle-mapping</artifactId>
+               <version>1.0.0</version>
+               <configuration>
+                  <lifecycleMappingMetadata>
+                     <pluginExecutions>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-dependency-plugin</artifactId>
+                              <versionRange>[2.4,)</versionRange>
+                              <goals>
+                                 <goal>analyze-dep-mgt</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore />
+                           </action>
+                        </pluginExecution>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-ear-plugin</artifactId>
+                              <versionRange>[2.7,)</versionRange>
+                              <goals>
+                                 <goal>generate-application-xml</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore />
+                           </action>
+                        </pluginExecution>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>com.ericsson.maven.plugins</groupId>
+                              <artifactId>rstate-maven-plugin</artifactId>
+                              <versionRange>[1.0,)</versionRange>
+                              <goals>
+                                 <goal>rstate</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore />
+                           </action>
+                        </pluginExecution>
+                        <pluginExecution>
+                           <pluginExecutionFilter>
+                              <groupId>
+                                 org.codehaus.mojo
+                              </groupId>
+                              <artifactId>
+                                 build-helper-maven-plugin
+                              </artifactId>
+                              <versionRange>
+                                 [1.7,)
+                              </versionRange>
+                              <goals>
+                                 <goal>regex-property</goal>
+                              </goals>
+                           </pluginExecutionFilter>
+                           <action>
+                              <ignore />
+                           </action>
+                        </pluginExecution>
+                     </pluginExecutions>
+                  </lifecycleMappingMetadata>
+               </configuration>
+            </plugin>
+         </plugins>
+      </pluginManagement>
+      <plugins>
+         <plugin>
+            <groupId>org.jboss.as.plugins</groupId>
+            <artifactId>jboss-as-maven-plugin</artifactId>
+            <configuration>
+               <filename>${project.parent.artifactId}.${project.packaging}</filename>
+               <skip>false</skip>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.0.0-M3</version>
+         </plugin>
+         <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.4</version>
+            <executions>
+               <execution>
+                  <id>prepare-unit-tests</id>
+                  <goals>
+                     <goal>prepare-agent</goal>
+                  </goals>
+               </execution>
+               <execution>
+                  <id>report</id>
+                  <phase>test</phase>
+                  <goals>
+                     <goal>report</goal>
+                  </goals>
+               </execution>
+            </executions>
+            <configuration>
+               <outputDirectory>${project.build.directory}/coverage-reports/jacoco</outputDirectory>
+            </configuration>
+         </plugin>
+      </plugins>
+    </build>
+         <modules>
+               <module>ERICeoishmmediationhandlers_CXP9042212</module>
+               <module>eoi-shm-mediation-handlers-api</module>
+               <module>eoi-shm-mediation-handlers-ear</module>
+               <module>eoi-shm-mediation-handlers-ejb</module>
+               <module>eoi-shm-mediation-handlers-impl</module>
+               <module>eoi-shm-mediation-handlers-jar</module>
+         </modules>
+   <scm>
+      <developerConnection>${ericsson.scm.url}</developerConnection>
+      <connection>${ericsson.scm.url}</connection>
+      <tag>HEAD</tag>
+   </scm>
+</project>
